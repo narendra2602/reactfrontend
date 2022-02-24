@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-const CATEGORY_API_BASE_URL="http://192.168.1.11:8080/api";
+const CATEGORY_API_BASE_URL="http://192.168.1.13:8080/api";
 let token = null;
 let user = null;
 

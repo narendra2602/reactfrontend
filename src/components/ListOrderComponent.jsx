@@ -3,17 +3,20 @@ import OrderService from '../services/OrderService';
 
 class ListOrderComponent extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { orders: [] };
+
+        this.viewOrderDetails = this.viewOrderDetails.bind(this);
 
 
     }
 
-    editOrder(id)
+    viewOrderDetails(id)
     {
         console.log("in edit user id is  "+id);
-        this.props.history.push(`/add-order/${id}`);
+        this.props.history.push(`/orderdetial/${id}`); 
+        
         
     }
     createOrder = (e) =>{
@@ -22,6 +25,7 @@ class ListOrderComponent extends Component {
     }
 
     componentDidMount() {
+        
         OrderService.getOrderList().then(res => {
             this.setState({ orders: res.data });
         }).catch(error => {
@@ -61,7 +65,7 @@ class ListOrderComponent extends Component {
                                             <td> {order.orderDate} </td>
                                             <td> {order.orderStatus} </td>
                                             <td style={{ width: "280px" }}>
-                                                <button style={{ marginLeft: "10px" }} onClick={() => this.editUser(order.id)} className='btn btn-outline-primary'>View</button>
+                                                <button style={{ marginLeft: "10px" }} onClick={() => this.viewOrderDetails(order.id)} className='btn btn-outline-primary'>View</button>
                                             </td>
                                         </tr>
 

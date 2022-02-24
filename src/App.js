@@ -14,6 +14,7 @@ import SideBarComponent from './components/SideBarComponent';
 import CreateUserComponent from './components/CreateUserComponent';
 import ListUserComponent from './components/ListUserComponent';
 import ListOrderComponent from './components/ListOrderComponent';
+import ListOrderDetailComponent from './components/ListOrderDetailComponent';
 
 
 class App extends Component {
@@ -39,6 +40,7 @@ class App extends Component {
                 <Route path="/add-user/:id" component={CreateUserComponent}></Route>
                 <Route path="/user" component={ListUserComponent}></Route>
                 <Route path="/order" component={ListOrderComponent}></Route>
+                <Route path="/orderdetial/:id" component={ListOrderDetailComponent}></Route>
                
                 <FooterComponent />
               </>
