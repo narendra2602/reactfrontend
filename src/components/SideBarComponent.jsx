@@ -50,16 +50,18 @@ class SideBarComponent extends Component {
         let user=JSON.parse(localStorage.getItem("user"));
          if(user.role==='Stockiest')
          {
-            linkStyle={display: "none"};
+            linkStyle={display: "none"}; 
          }
-        return (
+
+
+         return (
 
             <div className="sidebar">
                 <a className="active" href="#home">Home</a>
-                <a href="#"   onClick={this.newOrder}>Order </a>
-                <a href="#"  onClick={this.productOffer}>Products Offer</a>
+                <a href="#"  onClick={this.newOrder}>Order </a>
+                <a href="#" onClick={this.productOffer}>Products Offer</a>
                 <a href="#" style={linkStyle} onClick={this.newProduct} >New Product</a>
-                <a href="#"  style={linkStyle} onClick={this.newUser}>Users </a>
+                <a href="#" style={linkStyle} onClick={this.newUser}>Users </a>
             </div>
         );
     }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import UserService from '../services/UserService';
+import { CSVLink } from 'react-csv'
+import Button from '@mui/material/Button';
 
 class ListUserComponent extends Component {
 
@@ -11,13 +13,12 @@ class ListUserComponent extends Component {
     }
 
 
-    editUser(id)
-    {
-        console.log("in edit user id is  "+id);
+    editUser(id) {
+        console.log("in edit user id is  " + id);
         this.props.history.push(`/add-user/${id}`);
-        
+
     }
-    createUser = (e) =>{
+    createUser = (e) => {
         e.preventDefault();
         // window.location.href = "/add-user/-1";
         this.props.history.push('/add-user/-1');
@@ -35,19 +36,27 @@ class ListUserComponent extends Component {
 
     }
     render() {
+        let fileName = "user";
         return (
             <div className='content'>
                 <br></br>
                 <br></br>
                 <br></br>
                 <br></br>
-                <div >
-                    <button className='btn btn-primary ' onClick={this.createUser} >+ New User</button>
+                <div align="left">
+                    <button className='btn btn-primary' onClick={this.createUser} >+ New User</button>
+                        <Button variant="outlined" style={{  marginLeft: "912px" }}>
+                            <CSVLink data={this.state.users} filename={fileName} >Export</CSVLink>
+                        </Button>
                 </div>
+
+
+
+
 
                 <h2 className="text-center">User List</h2>
                 <div className="row table-container" >
-                    <table className="table table-striped table-bordered ">
+                    <table className="table table-striped table-bordered " >
                         <thead>
                             <tr className='red'>
                                 <th>Id</th>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import OrderService from '../services/OrderService';
+import imgNotAvailable from './ImageVar';
 
 class ListOrderDetailComponent extends Component {
 
@@ -10,7 +11,11 @@ class ListOrderDetailComponent extends Component {
                     orders: [] 
                     };
 
+        this.cancel=this.cancel.bind(this);
+    }
 
+    cancel() {
+        this.props.history.push('/order');
     }
 
     componentDidMount() {
@@ -23,6 +28,13 @@ class ListOrderDetailComponent extends Component {
 
 
     render() {
+
+        let amountToPay = 0;
+        for (let i=0; i<this.state.orders.length; i++) {
+           amountToPay += this.state.orders[i].amount;
+           
+        }
+
         return (
             <div className='content'>
                 <br></br>
@@ -30,7 +42,7 @@ class ListOrderDetailComponent extends Component {
                 <br></br>
                 <br></br>
 
-                <h2 className="text-center">Order Detail of Order No: {this.state.id}</h2>
+                <h2 className="text-center">Order Detail of Order No: {this.state.id}   &nbsp;&nbsp;&nbsp; Tentative Amount {amountToPay.toFixed(2)}</h2>
                 <div className="row table-container" >
                     <table className="table table-striped table-bordered ">
                         <thead>
@@ -49,12 +61,12 @@ class ListOrderDetailComponent extends Component {
                                 this.state.orders.map(
                                     order =>
                                         <tr key={order.id}>
-                                            <td> <img src={`data:image/png;base64,${order.image}`} style={{width: "120px", height: "80px"}} alt="img"/></td>
+                                            <td> <img src={`data:image/png;base64,${order.image===null?imgNotAvailable:order.image}`} style={{width: "120px", height: "80px"}} alt="img"/></td>
                                             <td> {order.name} </td>
                                             <td> {order.qty} </td>
-                                            <td> {order.mrp} </td>
-                                            <td> {order.price} </td>
-                                            <td> {order.amount} </td>
+                                            <td> {order.mrp.toFixed(2)} </td>
+                                            <td> {order.price.toFixed(2)} </td>
+                                            <td> {order.amount.toFixed(2)} </td>
                                         </tr>
 
                                 )
@@ -63,6 +75,7 @@ class ListOrderDetailComponent extends Component {
                         </tbody>
                     </table>
                 </div>
+                <div align="right"><button className='btn btn-primary' style={{marginTop: "10px"}} onClick={this.cancel.bind(this)} >Back</button></div> 
             </div>
         );
     }

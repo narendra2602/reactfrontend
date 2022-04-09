@@ -11,24 +11,28 @@ class ProductService {
         console.log(JSON.stringify(user));
         token = user.Authorization;
        
-        return axios.get(PRODUCT_API_BASE_URL + '/offer', { headers: { Authorization: token } });
+//        return axios.get(PRODUCT_API_BASE_URL + '/offer', { headers: { Authorization: token } });
+        return axios.get('/offer', { headers: { Authorization: token } });
     }
 
     addProduct(product) {
         //        token=localStorage.getItem('user');
-        user = localStorage.getItem('user');
+        user = JSON.parse(localStorage.getItem('user'));
         token = user.Authorization;
 
-        return axios.post(PRODUCT_API_BASE_URL + '/product', product, { headers: { Authorization: token } });
+//        return axios.post(PRODUCT_API_BASE_URL + '/product', product, { headers: { Authorization: token } });
+        return axios.post('/product', product, { headers: { Authorization: token } });
     }
 
 
     updateProduct(product, id) {
-        return axios.put(PRODUCT_API_BASE_URL + '/product/' + id, product, { headers: { Authorization: token } });
+//        return axios.put(PRODUCT_API_BASE_URL + '/product/' + id, product, { headers: { Authorization: token } });
+        return axios.put('/product/' + id, product, { headers: { Authorization: token } });
     }
 
     getProductById(id) {
-        return axios.get(PRODUCT_API_BASE_URL + '/product/' + id, { headers: { Authorization: token } });
+//        return axios.get(PRODUCT_API_BASE_URL + '/product/' + id, { headers: { Authorization: token } });
+        return axios.get('/product/' + id, { headers: { Authorization: token } });
     }
 
 }

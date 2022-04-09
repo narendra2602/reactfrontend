@@ -8,7 +8,8 @@ class LoginFormComponent extends Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            error:""
         };
     }
     handleUsernameChange = event => {
@@ -23,13 +24,18 @@ class LoginFormComponent extends Component {
         let user = {username: this.state.username, password: this.state.password };
         console.log(user);
         LoginService.getAuthenticate(user).then(res => {
-          let user = res.data;
-          console.log(user);
+          //let user = res.data;
+         // console.log(user);
           localStorage.setItem('user',JSON.stringify(res.data));
-          let usr = JSON.parse(localStorage.getItem('user'));
-          console.log("usr "+usr);
+         // let usr = JSON.parse(localStorage.getItem('user'));
+         // console.log("usr "+usr);
           this.props.history.push('/product');
-        });
+        }).catch(error => {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            this.setState({error: "Invalid username and password"});
+        });  
         
     };
     render() {
@@ -67,6 +73,7 @@ class LoginFormComponent extends Component {
                 <div className="card-footer-item-bordered" >
                    <a href="http://google.in" className="footer-link">Forgot Password</a>
                 </div>
+                <div>{this.state.error}</div>
             </div>
         );
     }

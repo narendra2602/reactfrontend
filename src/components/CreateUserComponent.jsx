@@ -3,11 +3,12 @@ import Select from 'react-select';
 import StateService from '../services/StateService';
 import UserService from '../services/UserService';
 const options = [{ "value": "CF", "label": "C&F" }, { "value": "FS", "label": "FS" }, { "value": "Stockiest", "label": "Stockiest" }];
-const hoCombo = [{ "value": 99, "label": "HO" }];
+const hoCombo = [{ "value": "99", "label": "HO" }];
 let linkStyleFS = {};
 let linkStyleCF = {};
 let linkStyleSpan={display: "none"};
 let linkStyleName={};
+
 class CreateUserComponent extends Component {
 
     constructor(props) {
@@ -72,9 +73,6 @@ class CreateUserComponent extends Component {
 
     changeNameHandler = (event) => {
         this.setState({ name: event.target.value });
-        console.log('value of stkcode is ' + this.state.stkcode);
-        console.log('value of CFcode is ' + this.state.cfcode);
-        console.log('value of fscode is ' + this.state.fscode);
     }
     changeCodeHandler = (event) => {
         this.setState({
@@ -90,7 +88,6 @@ class CreateUserComponent extends Component {
 
     lostCodeFocus = (event) => {
         let code = event.target.value;
-        console.log("code is " + code);
         if (code != '') {
             UserService.checkCodeExists(code).then(res => {
                 if (res.data.Found) {
@@ -138,7 +135,6 @@ class CreateUserComponent extends Component {
         if (this.state.role === 'Stockiest') {
             UserService.getRoleCombo(selectedOption.value, "Fs").then(res => {
                 this.setState({ fsCombo: res.data });
-                console.log(res.data);
             });
 
         }
@@ -151,13 +147,11 @@ class CreateUserComponent extends Component {
 
     handleChangeCFCombo = selectedOption => {
         this.setState({ cfcode: selectedOption.value });
-        console.log(selectedOption.value);
     }
 
 
     handleChangeFsCombo = selectedOption => {
         this.setState({ fscode: selectedOption.value });
-        console.log(selectedOption.value);
     }
 
     handleChangehoCombo = selectedOption => {
@@ -178,22 +172,46 @@ class CreateUserComponent extends Component {
         }
         else {
             UserService.getUserById(this.state.id).then(res => {
-                let user = res.data;
-                console.log(user);
+                let userdata = res.data;
+                let usermapping= res.data.usermapping;
+
                 this.setState({
-                    username: user.username,
-                    email: user.email,
-                    phone: user.phone,
-                    city: user.city,
-                    state_code: user.state,
-                    role: user.role
+                    username: userdata.username,
+                    email: userdata.email,
+                    phone: userdata.phone,
+                    city: userdata.city,
+                    state_code: userdata.state,
+                    role: userdata.role,
+                    hocode:usermapping.hocode,
+                    cfcode:usermapping.cfcode,
+                    fscode:usermapping.fscode,
+                    stkcode:usermapping.stkcode,
+                    name:usermapping.name,
+                    common_code:userdata.role==='Stockiest'?usermapping.stkcode:userdata.role==='CF'?usermapping.cfcode:usermapping.fscode
 
                 });
+                
+                
+
+                if (userdata.role === 'Stockiest' || userdata.role === 'FS') {
+                    UserService.getRoleCombo(userdata.state, 'CF').then(res => {
+                        this.setState({ cfCombo: res.data });
+                    });
+        
+                }
+        
+                if (userdata.role === 'Stockiest') {
+                    UserService.getRoleCombo(userdata.state, "Fs").then(res => {
+                        this.setState({ fsCombo: res.data });
+                        
+                    });
+        
+                }
+        
 
             });
         }
-
-
+                    
     }
     saveUser = (e) => {
         e.preventDefault();
@@ -201,10 +219,11 @@ class CreateUserComponent extends Component {
             username: this.state.username, password: this.state.password,
             email: this.state.email, phone: this.state.phone, city: this.state.city,
             role: this.state.role, state: this.state.state_code, enabled: true,
-            cfcode: this.state.cfcode, fscode: this.state.fscode, stkcode: this.state.stkcode,
-            hocode: this.state.hocode, name: this.state.name
+            cf_code: this.state.cfcode, fs_code: this.state.fscode, stk_code: this.state.stkcode,
+            ho_code: this.state.hocode, name: this.state.name
         };
 
+            console.log(user); 
 
         UserService.addUser(user).then(res => {
             this.props.history.push('/user');

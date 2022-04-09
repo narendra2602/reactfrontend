@@ -38,13 +38,14 @@ class ViewProductComponent extends Component {
     }
 
     render() {
-         
+         let pts=parseFloat(this.state.price);
+         let mrp=parseFloat(this.state.mrp);
         return (
             <div className='content'>
             <div className="cardView">
                 <center><img src={this.state.image} alt="Product" style={{width:"150px", height:"130px"}}/></center>
                     <h1>{this.state.name}</h1>
-                    <p className="price">PTS: {this.state.price}   MRP: {this.state.mrp}</p> 
+                    <p className="price">PTS: {pts.toFixed(2)}   MRP: {mrp.toFixed(2)}</p> 
                     <p>{this.state.description} </p>
                     <p><button className='btn btn-primary' style={{marginBottom: "10px"}} onClick={this.cancel.bind(this)} >Back</button></p>                    
             </div>

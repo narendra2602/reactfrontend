@@ -15,9 +15,23 @@ import CreateUserComponent from './components/CreateUserComponent';
 import ListUserComponent from './components/ListUserComponent';
 import ListOrderComponent from './components/ListOrderComponent';
 import ListOrderDetailComponent from './components/ListOrderDetailComponent';
+import NewOrderComponent from './components/NewOrderComponent';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cartcount: 0
+      
+  }
+  this.updateCount = this.updateCount.bind(this);
+}
+ 
+updateCount = (newCount) => {
+
+  this.setState({cartcount: newCount});
+}
 
   render() {
 
@@ -30,7 +44,7 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={LoginFormComponent}></Route>
               <>
-                <HeaderComponent />
+                <HeaderComponent item={this.state.cartcount} />
                 <SideBarComponent />
                 <Route path="/employees" component={ListEmployeeComponent}></Route>
                 <Route path="/product" component={ListProductComponent}></Route>
@@ -41,6 +55,7 @@ class App extends Component {
                 <Route path="/user" component={ListUserComponent}></Route>
                 <Route path="/order" component={ListOrderComponent}></Route>
                 <Route path="/orderdetial/:id" component={ListOrderDetailComponent}></Route>
+                <Route path="/neworder" component={NewOrderComponent}></Route>
                
                 <FooterComponent />
               </>

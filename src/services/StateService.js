@@ -9,7 +9,8 @@ class StateService{
     {
         user = JSON.parse(localStorage.getItem('user'));
         token= user.Authorization;
-        return axios.get(BASE_URL, {headers: {Authorization: token}});
+//        return axios.get(BASE_URL, {headers: {Authorization: token}});
+        return axios.get('/state', {headers: {Authorization: token}});
 
 
     }

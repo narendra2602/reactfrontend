@@ -12,7 +12,8 @@ class CategoryService  {
 
         user = JSON.parse(localStorage.getItem('user'));
         token = user.Authorization;
-        return axios.get(CATEGORY_API_BASE_URL + '/category', { headers: {Authorization: token} });
+        //return axios.get(CATEGORY_API_BASE_URL + '/category', { headers: {Authorization: token} });
+        return axios.get('/category', { headers: {Authorization: token} });
     }
 
     
