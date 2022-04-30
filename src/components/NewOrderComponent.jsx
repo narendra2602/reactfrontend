@@ -217,7 +217,7 @@ class NewOrderComponent extends Component {
                                             <td style={{ width: "280px" }}>
                                                 <input type="number" step={"1"} placeholder="Quantity" disabled={product.button == 0 ? false : true}
                                                     value={product.qty} style={{ width: "100px", height: "38px" }} onChange={(e) => this.changeProductQuantityHandler(e, product.id)} />
-                                                <button style={showbutton} disabled={product.button == 0 ? false : true} onClick={() => this.addProduct(product.id)} className='btn btn-primary'>Add to Cart</button>
+                                                <button style={showbutton} disabled={product.button == 0 ? false : true} onClick={() => this.addProduct(product.id)} className='btn btn-primary'>Add </button>
 
                                             </td>
                                         </tr>

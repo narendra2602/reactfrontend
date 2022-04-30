@@ -60,7 +60,7 @@ class CreateProductComponent extends Component {
             const filesize = (reader.result.replace("data:", "").replace(/^.+,/, "")).length * (3 / 4) - 2;
             console.log(filesize);
             this.setState({
-                image: filesize <= 100000 ? reader.result : ""
+                image: filesize <= 300000 ? reader.result : ""
             });
         }
         reader.readAsDataURL(img);

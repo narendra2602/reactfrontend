@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import imgNotAvailable from './ImageVar';
 
 class ShoppingCartProduct extends Component {
     constructor(props) {
@@ -33,7 +34,8 @@ class ShoppingCartProduct extends Component {
       return(
         <tr className="items-in-cart">
           {/* <td><img src={this.props.item.image}></img></td> */}
-          <td><img src={`data:image/png;base64,${this.props.item.image}`}></img></td>
+          <td> <img src={`data:image/png;base64,${this.props.item.image === null ? imgNotAvailable :this.props.item.image}`} style={{ width: "120px", height: "80px" }} alt="img" /></td>
+          {/* <td><img src={`data:image/png;base64,${this.props.item.image}`}></img></td> */}
 
           <td>{this.props.item.name}</td> 
           <td>₹{parseFloat(cartitem.price).toFixed(2)}</td>

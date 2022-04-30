@@ -54,7 +54,7 @@ updateCount = (newCount) => {
                 <Route path="/add-user/:id" component={CreateUserComponent}></Route>
                 <Route path="/user" component={ListUserComponent}></Route>
                 <Route path="/order" component={ListOrderComponent}></Route>
-                <Route path="/orderdetial/:id" component={ListOrderDetailComponent}></Route>
+                <Route path="/orderdetail/:id/:cf_name/:stk_name" component={ListOrderDetailComponent}></Route>
                 <Route path="/neworder" component={NewOrderComponent}></Route>
                
                 <FooterComponent />
